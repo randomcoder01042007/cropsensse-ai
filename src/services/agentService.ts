@@ -15,7 +15,7 @@ export const rulesAgent: AgentProvider = {
   name: "Rule-based policy (demo)",
   async decide({ vision, previous }, stage) {
     const q = vision.image_quality.score;
-    const affected = vision.measurements.affected_area?.value ?? null;
+    const affected = vision.measurements["affected_area"]?.value ?? null;
     const high = vision.regions.filter((r) => r.severity === "high");
     const recs: AgentDecision["recommendations"] = [];
 

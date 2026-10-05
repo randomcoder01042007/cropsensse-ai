@@ -196,7 +196,7 @@ async function runPipeline(analysis: Analysis, path: string, file: File, adapter
     await sleep(pace);
     await log("agent", decision.action === "HUMAN_REVIEW" ? "Agent requested human review" : decision.action === "REQUEST_NEW_IMAGE" ? "Agent requested new image" : "Agent generated final assessment", decision.rationale);
 
-    const affected = vision.measurements.affected_area?.value ?? null;
+    const affected = vision.measurements["affected_area"]?.value ?? null;
     if (vision.regions.length)
       await supabase.from("analysis_regions").insert(
         vision.regions.map((r) => ({

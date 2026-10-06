@@ -9,7 +9,7 @@ import { cn } from "@/lib/utils";
 
 type Tab = "agent" | "anomalies" | "recommendations";
 export const Route = createFileRoute("/_authenticated/insights")({
-  validateSearch: (s: Record<string, unknown>): { tab: Tab } => ({ tab: s.tab === "anomalies" || s.tab === "recommendations" ? s.tab : "agent" }),
+  validateSearch: (s: Record<string, unknown>): { tab?: Tab | undefined } => ({ tab: s["tab"] === "anomalies" || s["tab"] === "recommendations" ? s["tab"] : undefined }),
   head: () => ({ meta: [{ title: "AI Insights — CropSense AI" }, { name: "description", content: "Agent activity, visual anomalies and recommendations across fields." }] }),
   component: Insights,
 });
@@ -17,7 +17,7 @@ export const Route = createFileRoute("/_authenticated/insights")({
 const sevCls = (s: string) => (s === "high" ? "text-destructive" : s === "attention" ? "text-warning-foreground" : "text-primary");
 
 function Insights() {
-  const { tab } = Route.useSearch();
+  const tab = Route.useSearch().tab ?? "agent";
   const navigate = Route.useNavigate();
   const actions = useQuery({ queryKey: ["all-actions"], queryFn: async () => (await supabase.from("agent_actions").select("*, analyses(crop_type, source, fields(name))").order("created_at", { ascending: false }).limit(60)).data ?? [] });
   const anomalies = useQuery({ queryKey: ["anomalies"], queryFn: async () => (await supabase.from("analyses").select("*, fields(name)").in("health_status", ["attention", "high_stress"]).order("created_at", { ascending: false }).limit(50)).data ?? [] });

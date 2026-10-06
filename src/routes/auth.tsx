@@ -10,7 +10,7 @@ import { authService } from "@/services/authService";
 import heroImg from "@/assets/field-hero.jpg";
 
 export const Route = createFileRoute("/auth")({
-  validateSearch: (s: Record<string, unknown>) => ({ mode: s.mode === "signup" ? ("signup" as const) : ("login" as const) }),
+  validateSearch: (s: Record<string, unknown>): { mode?: "signup" | "login" | undefined } => ({ mode: s["mode"] === "signup" ? "signup" : undefined }),
   head: () => ({
     meta: [
       { title: "Sign in — CropSense AI" },
@@ -58,9 +58,9 @@ function AuthPage() {
 
   async function google() {
     const r = await authService.google();
-    if (r.error) return toast.error("Google sign-in failed. Please try again.");
+    if (r.error) { toast.error("Google sign-in failed. Please try again."); return; }
     if (r.redirected) return;
-    navigate({ to: "/dashboard" });
+    return navigate({ to: "/dashboard" });
   }
 
   return (

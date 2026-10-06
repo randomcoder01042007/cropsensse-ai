@@ -9,7 +9,7 @@ import { AnalysisTable } from "@/components/app/AnalysisTable";
 import { listAnalyses } from "@/services/analysisService";
 
 export const Route = createFileRoute("/_authenticated/history")({
-  validateSearch: (s: Record<string, unknown>) => ({ q: typeof s.q === "string" ? s.q : undefined }),
+  validateSearch: (s: Record<string, unknown>): { q?: string | undefined } => ({ q: typeof s["q"] === "string" ? s["q"] : undefined }),
   head: () => ({ meta: [{ title: "Analysis History — CropSense AI" }, { name: "description", content: "Search and filter all crop analyses." }] }),
   component: HistoryPage,
 });

@@ -16,7 +16,7 @@ import { cn } from "@/lib/utils";
 
 type Tab = "profile" | "preferences" | "notifications" | "analysis" | "status";
 export const Route = createFileRoute("/_authenticated/settings")({
-  validateSearch: (s: Record<string, unknown>): { tab?: Tab } => ({ tab: (["profile", "preferences", "notifications", "analysis", "status"] as const).find((t) => t === s.tab) }),
+  validateSearch: (s: Record<string, unknown>): { tab?: Tab | undefined } => ({ tab: (["profile", "preferences", "notifications", "analysis", "status"] as const).find((t) => t === s["tab"]) }),
   head: () => ({ meta: [{ title: "Settings — CropSense AI" }, { name: "description", content: "Profile, preferences and system status." }] }),
   component: SettingsPage,
 });

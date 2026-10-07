@@ -16,6 +16,7 @@ export type OverlayLayer = "original" | "mask" | "regions" | "processed";
 export function CvOverlay({ regions, layer, showLabels = true }: { regions: OverlayRegion[]; layer: OverlayLayer; showLabels?: boolean }) {
   if (layer === "original") return null;
   return (
+    <>
     <svg viewBox="0 0 100 100" preserveAspectRatio="none" className="pointer-events-none absolute inset-0 h-full w-full" aria-hidden="true">
       <defs>
         <pattern id="veg-hatch" width="2" height="2" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
@@ -47,15 +48,13 @@ export function CvOverlay({ regions, layer, showLabels = true }: { regions: Over
             )}
           </g>
         ))}
-      {showLabels && layer !== "mask" &&
-        regions.map((r) => (
-          <foreignObject key={r.id + "l"} x={r.x * 100} y={Math.max(0, r.y * 100 - 5)} width="40" height="5" overflow="visible">
-            <span className="inline-block rounded-sm bg-ink px-1 font-mono text-[10px] leading-4 text-ink-foreground whitespace-nowrap">
-              {r.id} · {r.area_percent ?? "—"}%
-            </span>
-          </foreignObject>
-        ))}
     </svg>
+    {showLabels && layer !== "mask" && regions.map((r) => (
+      <span key={r.id + "l"} className="pointer-events-none absolute -translate-y-full rounded-sm bg-ink px-1 font-mono text-[10px] leading-4 whitespace-nowrap text-ink-foreground" style={{ left: `${r.x * 100}%`, top: `${r.y * 100}%` }}>
+        {r.id} · {r.area_percent ?? "—"}%
+      </span>
+    ))}
+    </>
   );
 }
 

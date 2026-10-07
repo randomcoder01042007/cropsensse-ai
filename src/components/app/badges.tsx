@@ -42,7 +42,7 @@ export function SourceBadge({ source, className }: { source: DataSource; classNa
 }
 
 /** Renders a metric honestly: real value, a labelled demo value, or a waiting state. */
-export function MetricValue({ value, unit, source, className }: { value: number | null | undefined; unit?: string; source: DataSource; className?: string }) {
+export function MetricValue({ value, unit, source, className }: { value: number | null | undefined; unit?: string | undefined; source: DataSource; className?: string }) {
   if (value == null)
     return <span className={cn("text-sm font-normal text-muted-foreground", className)}>{source === "demo" ? "Not provided" : "Waiting for backend"}</span>;
   return (

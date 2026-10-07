@@ -64,7 +64,7 @@ function AnalysisPage() {
       {a.status === "vision_unavailable" && (
         <div className="mb-4"><ErrorState title="Vision engine unavailable" message={a.error_message ?? "Your image was uploaded, but computer-vision processing is currently unavailable."} onRetry={() => q.refetch()} /></div>
       )}
-      {a.status === "failed" && <div className="mb-4"><ErrorState title="Analysis failed" message={a.error_message ?? undefined} /></div>}
+      {a.status === "failed" && <div className="mb-4"><ErrorState title="Analysis failed" message={a.error_message ?? "The analysis could not be completed."} /></div>}
 
       {inProgress ? (
         <div className="grid gap-4 lg:grid-cols-[1fr_1.2fr]">
@@ -198,7 +198,7 @@ function Result({ a, imgUrl, isVideo }: { a: AnalysisDetail; imgUrl: string | nu
                 {a.analysis_measurements.map((m) => (
                   <div key={m.id} className="flex items-center justify-between py-2.5 text-sm">
                     <dt>{m.label} <span className="ml-2 font-mono text-xs text-muted-foreground">{m.key}</span></dt>
-                    <dd className="font-mono"><MetricValue value={m.value} unit={m.unit ?? undefined} source={a.source} /></dd>
+                    <dd className="font-mono"><MetricValue value={m.value} unit={m.unit ?? ""} source={a.source} /></dd>
                   </div>
                 ))}
               </dl>

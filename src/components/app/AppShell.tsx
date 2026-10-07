@@ -46,7 +46,7 @@ export function AppShell() {
                   <li key={it.label}>
                     <Link
                       to={it.to}
-                      search={"search" in it ? it.search : undefined}
+                      search={"search" in it ? it.search : {}}
                       onClick={() => setOpen(false)}
                       activeOptions={{ includeSearch: "search" in it }}
                       className="flex items-center gap-2.5 rounded-md px-2 py-1.5 text-sm text-sidebar-foreground hover:bg-sidebar-accent"
@@ -129,13 +129,13 @@ function Header({ onMenu }: { onMenu: () => void }) {
           <DropdownMenuTrigger asChild>
             <Button variant="ghost" size="icon" aria-label="Account" className="rounded-full">
               <span className="flex h-7 w-7 items-center justify-center rounded-full bg-primary text-xs font-semibold text-primary-foreground">
-                {(user.user_metadata?.full_name || user.email || "?").slice(0, 1).toUpperCase()}
+                {(user.user_metadata?.["full_name"] || user.email || "?").slice(0, 1).toUpperCase()}
               </span>
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
             <DropdownMenuLabel className="font-normal">
-              <div className="text-sm font-medium">{user.user_metadata?.full_name || "Account"}</div>
+              <div className="text-sm font-medium">{user.user_metadata?.["full_name"] || "Account"}</div>
               <div className="text-xs text-muted-foreground">{user.email}</div>
             </DropdownMenuLabel>
             <DropdownMenuSeparator />

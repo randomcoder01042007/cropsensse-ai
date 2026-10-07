@@ -206,8 +206,8 @@ function AgenticSection() {
         </ol>
         <div className="rounded-md border bg-card p-6">
           <p className="eyebrow">Step {i + 1} of {FLOW.length}</p>
-          <h3 className="mt-2 text-lg font-semibold">{FLOW[i].t}</h3>
-          <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{FLOW[i].d}</p>
+          <h3 className="mt-2 text-lg font-semibold">{FLOW[i]?.t}</h3>
+          <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{FLOW[i]?.d}</p>
           <div className="mt-6 grid grid-cols-6 gap-1">
             {FLOW.map((_, idx) => <div key={idx} className={cn("h-1 rounded-full", idx <= i ? "bg-primary" : "bg-muted")} />)}
           </div>

@@ -1,0 +1,93 @@
+{
+  "_note": "Copy this file to dataset_map.json. Change each 'path' to where you unzipped the dataset, and each key in 'classes' to the real folder name inside that dataset (case, spaces and underscores are ignored). Delete sources you do not have.",
+  "sources": [
+    {
+      "_dataset": "PlantVillage (Kaggle: vipoooool/new-plant-diseases-dataset) - tomato, potato, maize only",
+      "path": "/content/plantvillage",
+      "passthrough": true,
+      "include_crops": ["Tomato", "Potato", "Corn_(maize)"]
+    },
+    {
+      "_dataset": "Rice Leaf Disease Image Samples (Mendeley fwcj7stb8r, Sethy et al.)",
+      "path": "/content/rice_sethy",
+      "crop": "Rice",
+      "classes": {
+        "Bacterial blight": "Bacterial_leaf_blight",
+        "Blast": "Leaf_blast",
+        "Brown spot": "Brown_spot",
+        "Tungro": "Tungro"
+      }
+    },
+    {
+      "_dataset": "RiceLeafBD real-field rice photos (Mendeley kx9rx8p2mz) - sorted into folders by label first",
+      "path": "/content/rice_bd",
+      "crop": "Rice",
+      "classes": {
+        "Healthy": "healthy",
+        "Bacterial Leaf Blight": "Bacterial_leaf_blight",
+        "Brown Spot": "Brown_spot",
+        "Tungro": "Tungro"
+      }
+    },
+    {
+      "_dataset": "Wheat disease images (Zenodo 7573133, John Innes Centre field photos)",
+      "path": "/content/wheat_jic",
+      "crop": "Wheat",
+      "classes": {
+        "yellow rust": "Yellow_rust",
+        "brown rust": "Brown_rust",
+        "septoria": "Septoria",
+        "mildew": "Powdery_mildew",
+        "healthy": "healthy"
+      }
+    },
+    {
+      "_dataset": "Cotton Leaf Disease Dataset with Severity Levels (Mendeley 74jsdxtmx2)",
+      "path": "/content/cotton_severity",
+      "crop": "Cotton",
+      "classes": {
+        "Cotton_Healthy": "healthy",
+        "Bacterial_Blight": "Bacterial_blight",
+        "Fusarium_Wilt": "Fusarium_wilt",
+        "Curl_Virus": "Curl_virus"
+      }
+    },
+    {
+      "_dataset": "Cotton Leaf Image Dataset (Mendeley t9hgvk2h9p) - adds Alternaria and Verticillium",
+      "path": "/content/cotton_ewu",
+      "crop": "Cotton",
+      "classes": {
+        "Alternaria Leaf Spot": "Alternaria_leaf_spot",
+        "Verticillium Wilt": "Verticillium_wilt"
+      }
+    },
+    {
+      "_dataset": "Sugarcane Leaf Disease Dataset (Mendeley 9424skmnrk)",
+      "path": "/content/sugarcane",
+      "crop": "Sugarcane",
+      "classes": {
+        "Healthy": "healthy",
+        "Mosaic": "Mosaic",
+        "RedRot": "Red_rot",
+        "Rust": "Rust",
+        "Yellow": "Yellow_leaf"
+      }
+    },
+    {
+      "_dataset": "Auburn Soybean Disease Image Dataset (Dryad/Zenodo ASDID, field photos)",
+      "path": "/content/soybean_asdid",
+      "crop": "Soybean",
+      "classes": {
+        "healthy": "healthy",
+        "bacterial_blight": "Bacterial_blight",
+        "cercospora_leaf_blight": "Cercospora_leaf_blight",
+        "downey_mildew": "Downy_mildew",
+        "downy_mildew": "Downy_mildew",
+        "frogeye": "Frogeye_leaf_spot",
+        "rust": "Rust",
+        "target_spot": "Target_spot",
+        "potassium_deficiency": "Potassium_deficiency"
+      }
+    }
+  ]
+}

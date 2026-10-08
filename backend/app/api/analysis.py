@@ -1,4 +1,7 @@
-from fastapi import APIRouter, File, UploadFile, HTTPException
+from fastapi import APIRouter, File, Form, UploadFile, HTTPException
+from fastapi.concurrency import run_in_threadpool
+
+from app.ml.diagnosis import diagnose
 
 from app.vision.analysis import analyze_crop_image
 
@@ -11,7 +14,8 @@ router = APIRouter(
 
 @router.post("")
 async def analyze_crop_image_api(
-    file: UploadFile = File(...)
+    file: UploadFile = File(...),
+    crop: str | None = Form(None),
 ):
     allowed_types = {
         "image/jpeg",
@@ -42,9 +46,17 @@ async def analyze_crop_image_api(
             image_bytes
         )
 
+        # Run the trained disease classifier (never breaks the OpenCV result)
+        diagnosis = await run_in_threadpool(
+            diagnose,
+            image_bytes,
+            crop,
+        )
+
         # Return analysis result
         return {
             "filename": file.filename,
+            "diagnosis": diagnosis,
             **result,
         }
 

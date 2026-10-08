@@ -1,0 +1,900 @@
+{
+  "version": 1,
+  "disclaimer": "This is an automated screening aid, not a confirmed diagnosis. Confirm with a local agriculture extension officer or plant pathologist before treating. Always follow product labels and local regulations when using any chemical.",
+  "healthy": {
+    "name": "Healthy",
+    "cause": null,
+    "symptoms": [
+      "No visible signs of disease were detected on this leaf."
+    ],
+    "prevention": [
+      "Water at the base of plants and avoid wetting leaves late in the day.",
+      "Space plants for good airflow and remove plant debris regularly.",
+      "Rotate crops and use certified, disease-free seed or seedlings."
+    ],
+    "management": [
+      "No treatment is needed.",
+      "Keep scouting weekly, especially after rain or humid spells, and re-check if spots, curling or discoloration appear."
+    ]
+  },
+  "diseases": {
+    "apple_scab": {
+      "name": "Apple scab",
+      "cause": "fungal",
+      "symptoms": [
+        "Olive-green to brown, velvety spots on leaves that darken and may twist the leaf.",
+        "Scabby, corky patches on fruit; badly infected leaves yellow and drop early."
+      ],
+      "prevention": [
+        "Rake and destroy fallen leaves in autumn to remove the fungus's winter home.",
+        "Prune for open canopy so leaves dry quickly.",
+        "Plant scab-resistant varieties where possible."
+      ],
+      "management": [
+        "Apply a protectant fungicide labelled for apples from bud break, following your local spray guide.",
+        "Remove heavily infected leaves and fruit.",
+        "Avoid overhead irrigation."
+      ]
+    },
+    "apple_black_rot": {
+      "name": "Apple black rot",
+      "cause": "fungal",
+      "symptoms": [
+        "'Frogeye' leaf spots: purple-edged spots with a tan centre.",
+        "Fruit rots with dark concentric rings and may shrivel into hard black mummies; cankers can form on branches."
+      ],
+      "prevention": [
+        "Prune out dead wood and cankers during dormancy.",
+        "Remove mummified fruit from trees and the ground.",
+        "Protect trees from wounds and insect damage."
+      ],
+      "management": [
+        "Cut out cankers back to healthy wood and remove the debris from the orchard.",
+        "Use a fungicide programme labelled for apples as advised locally.",
+        "Pick off and destroy infected fruit."
+      ]
+    },
+    "cedar_apple_rust": {
+      "name": "Cedar apple rust",
+      "cause": "fungal",
+      "symptoms": [
+        "Bright yellow-orange spots on the upper leaf surface, often with tiny tube-like projections underneath.",
+        "Similar lesions can appear on fruit; heavy infection causes early leaf drop."
+      ],
+      "prevention": [
+        "Remove nearby juniper or red cedar trees where practical, as they host the fungus.",
+        "Choose rust-resistant apple varieties."
+      ],
+      "management": [
+        "Apply a protectant fungicide labelled for apples from pink bud through early summer, as advised locally.",
+        "Prune out galls on nearby junipers in late winter."
+      ]
+    },
+    "cherry_powdery_mildew": {
+      "name": "Powdery mildew (cherry)",
+      "cause": "fungal",
+      "symptoms": [
+        "White, powdery fungal growth on leaves and shoot tips.",
+        "Leaves may curl, distort or turn purplish and drop early."
+      ],
+      "prevention": [
+        "Prune for airflow and sunlight.",
+        "Avoid excess nitrogen fertiliser, which promotes soft growth.",
+        "Water in the morning at the soil level."
+      ],
+      "management": [
+        "Prune out and destroy infected shoots.",
+        "Apply sulfur or another fungicide labelled for cherries at first sign, as advised locally."
+      ]
+    },
+    "corn_gray_leaf_spot": {
+      "name": "Gray leaf spot (corn)",
+      "cause": "fungal",
+      "symptoms": [
+        "Narrow, rectangular tan to gray lesions running parallel to the leaf veins.",
+        "Lesions merge in humid weather and can blight whole leaves."
+      ],
+      "prevention": [
+        "Rotate away from corn for at least a year.",
+        "Bury or break down crop residue after harvest.",
+        "Plant tolerant hybrids."
+      ],
+      "management": [
+        "Scout fields and consider a labelled fungicide if lesions reach the upper leaves before or around tasseling in humid weather.",
+        "Avoid planting corn after corn in the same field."
+      ]
+    },
+    "corn_common_rust": {
+      "name": "Common rust (corn)",
+      "cause": "fungal",
+      "symptoms": [
+        "Small, round to elongated, reddish-brown pustules on both leaf surfaces.",
+        "Pustules release powdery rust-coloured spores that rub off on fingers."
+      ],
+      "prevention": [
+        "Plant resistant hybrids.",
+        "Plant at the recommended time so young plants avoid cool, humid spells."
+      ],
+      "management": [
+        "Often minor; monitor spread to the upper leaves.",
+        "Consider a labelled fungicide only if infection is heavy before tasseling."
+      ]
+    },
+    "corn_northern_leaf_blight": {
+      "name": "Northern leaf blight (corn)",
+      "cause": "fungal",
+      "symptoms": [
+        "Long, cigar-shaped gray-green to tan lesions, several centimetres long, on the leaves.",
+        "Lesions can join together and blight large areas of the leaf."
+      ],
+      "prevention": [
+        "Use resistant hybrids.",
+        "Rotate crops and manage residue by tillage or decomposition."
+      ],
+      "management": [
+        "Scout from early growth and consider a labelled fungicide if lesions appear on upper leaves around tasseling.",
+        "Remove or bury infected residue after harvest."
+      ]
+    },
+    "grape_black_rot": {
+      "name": "Grape black rot",
+      "cause": "fungal",
+      "symptoms": [
+        "Tan spots with dark borders on leaves, with tiny black dots inside.",
+        "Berries brown, shrivel and turn into hard black mummies."
+      ],
+      "prevention": [
+        "Remove mummified berries and infected canes during dormancy.",
+        "Keep the canopy open so leaves and fruit dry quickly."
+      ],
+      "management": [
+        "Apply a protectant fungicide from early shoot growth through fruit set, as advised locally.",
+        "Remove and destroy infected clusters."
+      ]
+    },
+    "grape_esca": {
+      "name": "Grape esca (black measles)",
+      "cause": "fungal",
+      "symptoms": [
+        "'Tiger-stripe' yellow or brown patches between the leaf veins.",
+        "Dark spots on berries; cut wood shows dark streaks, and vines can collapse suddenly."
+      ],
+      "prevention": [
+        "Prune in dry weather and protect large pruning cuts with a wound sealant.",
+        "Use clean, certified planting stock."
+      ],
+      "management": [
+        "There is no cure; remove and destroy dead or severely affected wood and vines.",
+        "Do not leave prunings in the vineyard, and ask your extension service about local options."
+      ]
+    },
+    "grape_leaf_blight": {
+      "name": "Grape leaf blight (Isariopsis leaf spot)",
+      "cause": "fungal",
+      "symptoms": [
+        "Irregular dark brown spots on leaves, usually on older leaves first.",
+        "Severely affected leaves yellow and drop early."
+      ],
+      "prevention": [
+        "Keep the canopy open and remove fallen leaves.",
+        "Avoid overhead irrigation."
+      ],
+      "management": [
+        "Remove and destroy infected leaves.",
+        "Use a fungicide programme labelled for grapes, as advised locally."
+      ]
+    },
+    "citrus_greening": {
+      "name": "Citrus greening (Huanglongbing)",
+      "cause": "bacterial (spread by psyllids)",
+      "symptoms": [
+        "Blotchy, asymmetrical yellow mottling of leaves, and yellow shoots.",
+        "Small, lopsided, bitter fruit that stays green at the bottom and drops early."
+      ],
+      "prevention": [
+        "Control the Asian citrus psyllid that spreads the disease.",
+        "Plant only certified disease-free nursery trees."
+      ],
+      "management": [
+        "There is no cure. Report suspected cases to your local agriculture authority.",
+        "Infected trees are usually removed to protect others; follow local regulations."
+      ]
+    },
+    "bacterial_spot": {
+      "name": "Bacterial spot",
+      "cause": "bacterial",
+      "symptoms": [
+        "Small, water-soaked dark spots on leaves that turn brown or black, sometimes with a yellow halo.",
+        "Rough, scabby spots on fruit; heavily affected leaves yellow and drop."
+      ],
+      "prevention": [
+        "Use certified clean seed or transplants.",
+        "Avoid overhead irrigation and do not work among wet plants.",
+        "Rotate away from the crop for 2 to 3 years."
+      ],
+      "management": [
+        "Remove and destroy infected plants or leaves.",
+        "Copper-based bactericides can slow spread but will not cure existing spots.",
+        "Disinfect tools between plants."
+      ]
+    },
+    "early_blight": {
+      "name": "Early blight",
+      "cause": "fungal",
+      "symptoms": [
+        "Dark brown spots with concentric rings like a target, usually starting on older lower leaves.",
+        "Yellowing around the spots; stems and fruit can also show lesions."
+      ],
+      "prevention": [
+        "Rotate crops and remove plant debris at the end of the season.",
+        "Mulch and use drip irrigation to stop soil splashing onto leaves.",
+        "Give plants enough nutrients and space."
+      ],
+      "management": [
+        "Remove infected lower leaves.",
+        "Apply a fungicide labelled for the crop at first symptoms, as advised locally."
+      ]
+    },
+    "late_blight": {
+      "name": "Late blight",
+      "cause": "oomycete (water mould)",
+      "symptoms": [
+        "Large, irregular water-soaked blotches on leaves that turn brown or black.",
+        "White fuzzy growth on leaf undersides in humid weather; fruit and tubers can rot. It spreads very fast."
+      ],
+      "prevention": [
+        "Use certified seed and destroy volunteer plants and cull piles.",
+        "Avoid overhead watering and improve airflow.",
+        "Plant resistant varieties where available."
+      ],
+      "management": [
+        "Act quickly: remove and bag infected plants; do not compost them.",
+        "Apply a protectant fungicide labelled for the crop as advised locally, and alert neighbouring growers.",
+        "Do not store tubers or fruit from affected plants."
+      ]
+    },
+    "squash_powdery_mildew": {
+      "name": "Powdery mildew (squash)",
+      "cause": "fungal",
+      "symptoms": [
+        "White, powdery patches on the upper leaf surface and stems.",
+        "Leaves yellow, dry out and die, reducing yield."
+      ],
+      "prevention": [
+        "Plant in full sun with wide spacing.",
+        "Choose resistant varieties.",
+        "Avoid excess nitrogen."
+      ],
+      "management": [
+        "Remove badly infected leaves.",
+        "Apply sulfur, potassium bicarbonate or a fungicide labelled for squash at first sign."
+      ]
+    },
+    "strawberry_leaf_scorch": {
+      "name": "Strawberry leaf scorch",
+      "cause": "fungal",
+      "symptoms": [
+        "Many small purple spots on leaves that enlarge and merge.",
+        "Leaves look scorched, dry and may curl."
+      ],
+      "prevention": [
+        "Choose resistant varieties and space plants for airflow.",
+        "Renovate beds and remove old leaves after harvest.",
+        "Avoid overhead irrigation."
+      ],
+      "management": [
+        "Remove and destroy infected leaves.",
+        "Apply a fungicide labelled for strawberries if disease is spreading, as advised locally."
+      ]
+    },
+    "leaf_mold": {
+      "name": "Tomato leaf mold",
+      "cause": "fungal",
+      "symptoms": [
+        "Pale green or yellow spots on the upper leaf surface.",
+        "Olive-green to brown velvety mold on the underside, mainly in humid, enclosed conditions."
+      ],
+      "prevention": [
+        "Ventilate greenhouses and lower humidity.",
+        "Space and stake plants; choose resistant varieties."
+      ],
+      "management": [
+        "Prune lower infected leaves and keep foliage dry.",
+        "Use a fungicide labelled for tomatoes if it keeps spreading."
+      ]
+    },
+    "septoria_leaf_spot": {
+      "name": "Septoria leaf spot",
+      "cause": "fungal",
+      "symptoms": [
+        "Many small circular spots with gray-white centres and dark borders.",
+        "Tiny black specks in the centres; starts on lower leaves, which then yellow and drop."
+      ],
+      "prevention": [
+        "Rotate crops and clear plant debris.",
+        "Mulch and water at the base of plants."
+      ],
+      "management": [
+        "Remove infected lower leaves.",
+        "Apply a fungicide labelled for the crop at first signs, as advised locally."
+      ]
+    },
+    "spider_mites": {
+      "name": "Spider mite damage",
+      "cause": "pest (mites)",
+      "symptoms": [
+        "Fine yellow or white stippling on leaves, which may turn bronze.",
+        "Fine webbing on leaf undersides; leaves dry out and drop, worst in hot, dry weather."
+      ],
+      "prevention": [
+        "Avoid water stress and dusty conditions.",
+        "Encourage natural predators and scout undersides of leaves regularly."
+      ],
+      "management": [
+        "Wash mites off with a strong spray of water.",
+        "Use insecticidal soap, horticultural oil or a miticide labelled for the crop; avoid broad-spectrum insecticides that kill natural predators."
+      ]
+    },
+    "target_spot": {
+      "name": "Target spot",
+      "cause": "fungal",
+      "symptoms": [
+        "Brown spots with concentric rings on leaves, sometimes on stems and fruit.",
+        "Looks similar to early blight."
+      ],
+      "prevention": [
+        "Improve airflow, rotate crops and remove crop debris.",
+        "Avoid overhead irrigation."
+      ],
+      "management": [
+        "Remove infected leaves.",
+        "Apply a fungicide labelled for the crop as advised locally."
+      ]
+    },
+    "tylcv": {
+      "name": "Tomato yellow leaf curl virus",
+      "cause": "viral (spread by whiteflies)",
+      "symptoms": [
+        "Leaves curl upward and cup, with yellow edges.",
+        "Plants are stunted and bushy, with flower drop and poor fruit set."
+      ],
+      "prevention": [
+        "Control whiteflies using screens, reflective mulch and monitoring.",
+        "Plant resistant varieties and certified virus-free transplants."
+      ],
+      "management": [
+        "There is no cure; remove and destroy infected plants early.",
+        "Control whiteflies and remove nearby weeds that host the virus."
+      ]
+    },
+    "tomato_mosaic_virus": {
+      "name": "Tomato mosaic virus",
+      "cause": "viral",
+      "symptoms": [
+        "Mottled light and dark green mosaic pattern on leaves.",
+        "Distorted, fern-like leaves, stunted plants and uneven fruit ripening."
+      ],
+      "prevention": [
+        "Use certified virus-free seed.",
+        "Wash hands and disinfect tools; avoid handling tobacco before touching plants.",
+        "Remove weeds that can host the virus."
+      ],
+      "management": [
+        "There is no cure; remove and destroy infected plants, and do not compost them.",
+        "Disinfect tools and supports before reuse."
+      ]
+    },
+    "soybean_bacterial_blight": {
+      "name": "Soybean bacterial blight",
+      "cause": "bacterial",
+      "symptoms": [
+        "Small angular, water-soaked spots that turn brown with a yellow halo.",
+        "Spots merge and centres can tear out, leaving ragged leaves."
+      ],
+      "prevention": [
+        "Use certified disease-free seed and resistant varieties.",
+        "Rotate away from soybean and bury crop residue.",
+        "Avoid working in the field when leaves are wet."
+      ],
+      "management": [
+        "There is no cure; copper sprays give only limited help.",
+        "Avoid moving through wet fields to stop spreading it.",
+        "Rotate crops next season."
+      ]
+    },
+    "soybean_cercospora_leaf_blight": {
+      "name": "Soybean Cercospora leaf blight",
+      "cause": "fungal",
+      "symptoms": [
+        "Upper leaves turn leathery and purple to bronze, often with small light purple spots.",
+        "Severe cases cause leaf drop; seeds can show purple staining."
+      ],
+      "prevention": [
+        "Rotate crops and manage residue.",
+        "Use clean seed and avoid dense planting."
+      ],
+      "management": [
+        "Scout from flowering; if widespread, consider a labelled foliar fungicide around pod set as advised locally.",
+        "Remove or bury infected residue after harvest."
+      ]
+    },
+    "soybean_downy_mildew": {
+      "name": "Soybean downy mildew",
+      "cause": "oomycete (water mould)",
+      "symptoms": [
+        "Pale green to yellow spots on the upper leaf surface.",
+        "Grayish fuzzy growth on the underside; spots turn brown."
+      ],
+      "prevention": [
+        "Use resistant varieties and clean seed.",
+        "Rotate crops and manage residue."
+      ],
+      "management": [
+        "Usually causes limited yield loss; monitor spread.",
+        "A fungicide is rarely needed; ask your extension service if infection is heavy."
+      ]
+    },
+    "soybean_frogeye_leaf_spot": {
+      "name": "Soybean frogeye leaf spot",
+      "cause": "fungal",
+      "symptoms": [
+        "Circular to angular spots with gray-tan centres and dark reddish-brown borders.",
+        "Heavily spotted leaves can die and drop."
+      ],
+      "prevention": [
+        "Plant resistant varieties.",
+        "Rotate crops and bury residue.",
+        "Use clean seed."
+      ],
+      "management": [
+        "If widespread around flowering and pod fill, apply a labelled foliar fungicide as advised locally.",
+        "Avoid soybean after soybean in the same field."
+      ]
+    },
+    "soybean_rust": {
+      "name": "Soybean rust",
+      "cause": "fungal",
+      "symptoms": [
+        "Tiny tan to reddish-brown pustules, mostly on the underside of leaves.",
+        "Leaves yellow and drop early; spreads quickly by wind."
+      ],
+      "prevention": [
+        "Scout regularly, especially in warm humid weather.",
+        "Plant earlier-maturing varieties where suitable.",
+        "Remove volunteer soybean and alternate host plants."
+      ],
+      "management": [
+        "Act quickly: apply a labelled foliar fungicide when rust is found, following local advisories.",
+        "Report outbreaks to your agriculture extension service."
+      ]
+    },
+    "soybean_target_spot": {
+      "name": "Soybean target spot",
+      "cause": "fungal",
+      "symptoms": [
+        "Brown circular spots with concentric rings and a yellow halo.",
+        "Often starts on the lower canopy and moves upward."
+      ],
+      "prevention": [
+        "Rotate crops and bury residue.",
+        "Avoid overly dense canopies so leaves dry quickly."
+      ],
+      "management": [
+        "Apply a labelled fungicide if disease is severe in humid weather, as advised locally.",
+        "Remove or bury infected residue."
+      ]
+    },
+    "soybean_potassium_deficiency": {
+      "name": "Soybean potassium deficiency",
+      "cause": "nutrient deficiency (not an infection)",
+      "symptoms": [
+        "Yellowing then browning along leaf edges and tips, starting on older leaves.",
+        "Plants may look stunted with poor pod fill."
+      ],
+      "prevention": [
+        "Test soil before planting and keep potassium at recommended levels.",
+        "Avoid soil compaction and drought stress."
+      ],
+      "management": [
+        "Apply potassium fertiliser based on a soil or leaf test.",
+        "Correct soil pH if it is out of range; do not spray fungicide for this problem."
+      ]
+    },
+    "wheat_yellow_rust": {
+      "name": "Wheat yellow (stripe) rust",
+      "cause": "fungal",
+      "symptoms": [
+        "Stripes of yellow-orange pustules running along the leaf veins.",
+        "Leaves dry out early; worst in cool, humid weather."
+      ],
+      "prevention": [
+        "Plant resistant varieties.",
+        "Remove volunteer wheat that carries rust between seasons.",
+        "Avoid very early sowing."
+      ],
+      "management": [
+        "Scout often; if rust reaches the upper leaves, apply a labelled fungicide quickly as advised locally.",
+        "Report outbreaks to your agriculture extension service."
+      ]
+    },
+    "wheat_brown_rust": {
+      "name": "Wheat brown (leaf) rust",
+      "cause": "fungal",
+      "symptoms": [
+        "Scattered round orange-brown pustules mainly on the upper leaf surface.",
+        "Leaves yellow and dry; yield drops if the flag leaf is hit."
+      ],
+      "prevention": [
+        "Plant resistant varieties.",
+        "Remove volunteer wheat and sow at the recommended time."
+      ],
+      "management": [
+        "If pustules are on the flag leaf before grain filling, apply a labelled fungicide as advised locally.",
+        "Keep scouting every few days in warm, humid weather."
+      ]
+    },
+    "wheat_septoria": {
+      "name": "Septoria leaf blotch (wheat)",
+      "cause": "fungal",
+      "symptoms": [
+        "Yellow to brown blotches limited by the leaf veins, starting on lower leaves.",
+        "Tiny black dots (fruiting bodies) appear inside the lesions in wet weather."
+      ],
+      "prevention": [
+        "Rotate crops and manage stubble.",
+        "Use resistant varieties and avoid very dense sowing."
+      ],
+      "management": [
+        "Protect the upper leaves with a labelled fungicide timed to the flag-leaf stage, as advised locally.",
+        "Remove or bury infected residue after harvest."
+      ]
+    },
+    "wheat_powdery_mildew": {
+      "name": "Wheat powdery mildew",
+      "cause": "fungal",
+      "symptoms": [
+        "White fluffy powdery colonies on leaves and stems.",
+        "Colonies turn gray-brown with black specks as they age."
+      ],
+      "prevention": [
+        "Use resistant varieties.",
+        "Avoid excess nitrogen and overly dense stands."
+      ],
+      "management": [
+        "Apply a labelled fungicide if it is spreading to upper leaves, as advised locally.",
+        "Manage stubble and volunteer wheat."
+      ]
+    },
+    "rice_bacterial_leaf_blight": {
+      "name": "Rice bacterial leaf blight",
+      "cause": "bacterial",
+      "symptoms": [
+        "Water-soaked yellow-orange stripes along leaf edges that turn straw-coloured and dry.",
+        "Seedlings can wilt and die ('kresek')."
+      ],
+      "prevention": [
+        "Use certified seed and resistant varieties.",
+        "Avoid excess nitrogen and keep fields well drained.",
+        "Remove infected stubble and weeds."
+      ],
+      "management": [
+        "There is no cure; reduce nitrogen and drain the field.",
+        "Copper products give only limited help.",
+        "Avoid moving water or tools from infected to healthy fields."
+      ]
+    },
+    "rice_brown_spot": {
+      "name": "Rice brown spot",
+      "cause": "fungal",
+      "symptoms": [
+        "Oval brown spots with gray centres and yellow halos on leaves.",
+        "Can spread to grains, causing discoloured, lighter kernels."
+      ],
+      "prevention": [
+        "Use healthy, treated seed.",
+        "Fertilise in balance and fix nutrient shortages.",
+        "Avoid water stress."
+      ],
+      "management": [
+        "Improve soil fertility and water management.",
+        "Apply a labelled fungicide if infection is severe, as advised locally."
+      ]
+    },
+    "rice_leaf_blast": {
+      "name": "Rice leaf blast",
+      "cause": "fungal",
+      "symptoms": [
+        "Diamond or spindle-shaped lesions with gray centres and brown borders.",
+        "Can kill seedlings and later cause neck blast (broken panicle necks)."
+      ],
+      "prevention": [
+        "Plant resistant varieties and use treated seed.",
+        "Avoid heavy single doses of nitrogen.",
+        "Avoid late planting."
+      ],
+      "management": [
+        "Apply a labelled fungicide at early symptoms, as advised locally.",
+        "Manage field water and split nitrogen applications."
+      ]
+    },
+    "rice_tungro": {
+      "name": "Rice tungro disease",
+      "cause": "viral (spread by green leafhoppers)",
+      "symptoms": [
+        "Yellow to orange discolouration of leaves.",
+        "Stunted plants with fewer tillers and poor grain."
+      ],
+      "prevention": [
+        "Plant resistant varieties and synchronise planting in the area.",
+        "Control leafhoppers and remove infected stubble and weeds."
+      ],
+      "management": [
+        "There is no cure; remove infected plants early where practical.",
+        "Control leafhopper vectors and avoid planting next to infected fields."
+      ]
+    },
+    "rice_leaf_smut": {
+      "name": "Rice leaf smut",
+      "cause": "fungal",
+      "symptoms": [
+        "Small, angular, raised black spots or smudges on both sides of the leaf."
+      ],
+      "prevention": [
+        "Use healthy seed and balanced fertiliser.",
+        "Remove infected crop residue."
+      ],
+      "management": [
+        "Usually a minor disease; monitor.",
+        "A fungicide is rarely needed; ask your extension service if it is severe."
+      ]
+    },
+    "rice_leaf_scald": {
+      "name": "Rice leaf scald",
+      "cause": "fungal",
+      "symptoms": [
+        "Lesions start at leaf tips and edges, with bands that give a scalded look.",
+        "Leaves dry from the tip downward."
+      ],
+      "prevention": [
+        "Use clean seed and resistant varieties.",
+        "Avoid excess nitrogen."
+      ],
+      "management": [
+        "Remove heavily infected residue.",
+        "Apply a labelled fungicide if severe, as advised locally."
+      ]
+    },
+    "rice_sheath_blight": {
+      "name": "Rice sheath blight",
+      "cause": "fungal",
+      "symptoms": [
+        "Oval greenish-gray lesions on leaf sheaths near the water line.",
+        "Lesions turn grayish-white with brown borders and spread upward."
+      ],
+      "prevention": [
+        "Avoid dense planting and heavy nitrogen.",
+        "Control weeds and remove infected straw and stubble."
+      ],
+      "management": [
+        "Apply a labelled fungicide from tillering to booting if disease is spreading, as advised locally.",
+        "Drain the field where possible."
+      ]
+    },
+    "cotton_bacterial_blight": {
+      "name": "Cotton bacterial blight",
+      "cause": "bacterial",
+      "symptoms": [
+        "Angular water-soaked spots limited by leaf veins that turn brown.",
+        "Dark lesions can form on stems ('black arm') and bolls."
+      ],
+      "prevention": [
+        "Use certified, delinted seed and resistant varieties.",
+        "Rotate crops and destroy infected residue."
+      ],
+      "management": [
+        "There is no cure; copper sprays may slow spread.",
+        "Avoid working in wet fields and remove badly infected plants."
+      ]
+    },
+    "cotton_curl_virus": {
+      "name": "Cotton leaf curl virus",
+      "cause": "viral (spread by whiteflies)",
+      "symptoms": [
+        "Leaves curl upward or downward with thickened, dark veins.",
+        "Plants are stunted; small leaf-like growths can appear under the leaf."
+      ],
+      "prevention": [
+        "Plant resistant varieties and sow on time.",
+        "Control whiteflies and remove weed hosts."
+      ],
+      "management": [
+        "There is no cure; uproot early-infected plants.",
+        "Manage whiteflies with integrated methods as advised locally."
+      ]
+    },
+    "cotton_fusarium_wilt": {
+      "name": "Cotton Fusarium wilt",
+      "cause": "fungal (soil-borne)",
+      "symptoms": [
+        "Yellowing and wilting of lower leaves, often on one side of the plant.",
+        "Cut stems show brown streaks inside."
+      ],
+      "prevention": [
+        "Plant resistant varieties.",
+        "Rotate crops and control root-knot nematodes.",
+        "Avoid injuring roots."
+      ],
+      "management": [
+        "There is no cure; remove and destroy infected plants.",
+        "Do not move soil or water from infected fields to clean ones."
+      ]
+    },
+    "cotton_verticillium_wilt": {
+      "name": "Cotton Verticillium wilt",
+      "cause": "fungal (soil-borne)",
+      "symptoms": [
+        "Yellow patches between the veins that turn brown, plus wilting.",
+        "Cut stems show brown discolouration inside."
+      ],
+      "prevention": [
+        "Rotate with non-host crops such as cereals.",
+        "Use tolerant varieties and keep fields clean of residue."
+      ],
+      "management": [
+        "There is no cure; remove infected residue.",
+        "Avoid excess nitrogen and over-irrigation."
+      ]
+    },
+    "cotton_alternaria_leaf_spot": {
+      "name": "Cotton Alternaria leaf spot",
+      "cause": "fungal",
+      "symptoms": [
+        "Small brown spots with concentric rings and purple margins.",
+        "Spots merge and leaves may drop early."
+      ],
+      "prevention": [
+        "Rotate crops and remove residue.",
+        "Keep potassium and nutrition balanced."
+      ],
+      "management": [
+        "Remove infected residue after harvest.",
+        "Apply a labelled fungicide if severe, as advised locally."
+      ]
+    },
+    "sugarcane_red_rot": {
+      "name": "Sugarcane red rot",
+      "cause": "fungal",
+      "symptoms": [
+        "Red discolouration inside split stalks with white cross bands.",
+        "Reddish spots on the leaf midrib and drying of the top leaves."
+      ],
+      "prevention": [
+        "Plant disease-free setts from healthy fields; consider heat treatment of setts.",
+        "Use resistant varieties and rotate crops."
+      ],
+      "management": [
+        "Uproot and destroy infected clumps; do not use setts from infected fields.",
+        "Avoid ratooning a heavily infected crop; ask your extension service about local control."
+      ]
+    },
+    "sugarcane_rust": {
+      "name": "Sugarcane rust",
+      "cause": "fungal",
+      "symptoms": [
+        "Small, elongated orange-brown pustules on both sides of the leaf.",
+        "Heavily infected leaves dry out early."
+      ],
+      "prevention": [
+        "Plant resistant varieties.",
+        "Avoid excess nitrogen."
+      ],
+      "management": [
+        "Remove heavily infected leaves.",
+        "Apply a labelled fungicide if severe, as advised locally."
+      ]
+    },
+    "sugarcane_mosaic": {
+      "name": "Sugarcane mosaic",
+      "cause": "viral (spread by aphids and infected setts)",
+      "symptoms": [
+        "Mottled light and dark green streaks along the leaf.",
+        "Stunted growth and thinner stalks."
+      ],
+      "prevention": [
+        "Use virus-free seed cane and resistant varieties.",
+        "Control aphids."
+      ],
+      "management": [
+        "There is no cure; remove infected plants early.",
+        "Do not take setts from infected fields."
+      ]
+    },
+    "sugarcane_yellow_leaf": {
+      "name": "Sugarcane yellow leaf disease",
+      "cause": "viral (spread by aphids and infected setts)",
+      "symptoms": [
+        "Yellowing of the leaf midrib on the underside, spreading across the blade.",
+        "Leaves dry from the tips; growth is reduced."
+      ],
+      "prevention": [
+        "Use virus-free seed cane (for example tissue-culture plantlets) and resistant varieties.",
+        "Control aphids."
+      ],
+      "management": [
+        "There is no cure; remove infected stools where practical.",
+        "Avoid ratooning heavily infected crops."
+      ]
+    }
+  },
+  "labels": {
+    "Apple___Apple_scab": "apple_scab",
+    "Apple___Black_rot": "apple_black_rot",
+    "Apple___Cedar_apple_rust": "cedar_apple_rust",
+    "Apple___healthy": "healthy",
+    "Blueberry___healthy": "healthy",
+    "Cherry_(including_sour)___Powdery_mildew": "cherry_powdery_mildew",
+    "Cherry_(including_sour)___healthy": "healthy",
+    "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot": "corn_gray_leaf_spot",
+    "Corn_(maize)___Common_rust_": "corn_common_rust",
+    "Corn_(maize)___Northern_Leaf_Blight": "corn_northern_leaf_blight",
+    "Corn_(maize)___healthy": "healthy",
+    "Grape___Black_rot": "grape_black_rot",
+    "Grape___Esca_(Black_Measles)": "grape_esca",
+    "Grape___Leaf_blight_(Isariopsis_Leaf_Spot)": "grape_leaf_blight",
+    "Grape___healthy": "healthy",
+    "Orange___Haunglongbing_(Citrus_greening)": "citrus_greening",
+    "Peach___Bacterial_spot": "bacterial_spot",
+    "Peach___healthy": "healthy",
+    "Pepper,_bell___Bacterial_spot": "bacterial_spot",
+    "Pepper,_bell___healthy": "healthy",
+    "Potato___Early_blight": "early_blight",
+    "Potato___Late_blight": "late_blight",
+    "Potato___healthy": "healthy",
+    "Raspberry___healthy": "healthy",
+    "Soybean___healthy": "healthy",
+    "Squash___Powdery_mildew": "squash_powdery_mildew",
+    "Strawberry___Leaf_scorch": "strawberry_leaf_scorch",
+    "Strawberry___healthy": "healthy",
+    "Tomato___Bacterial_spot": "bacterial_spot",
+    "Tomato___Early_blight": "early_blight",
+    "Tomato___Late_blight": "late_blight",
+    "Tomato___Leaf_Mold": "leaf_mold",
+    "Tomato___Septoria_leaf_spot": "septoria_leaf_spot",
+    "Tomato___Spider_mites Two-spotted_spider_mite": "spider_mites",
+    "Tomato___Target_Spot": "target_spot",
+    "Tomato___Tomato_Yellow_Leaf_Curl_Virus": "tylcv",
+    "Tomato___Tomato_mosaic_virus": "tomato_mosaic_virus",
+    "Tomato___healthy": "healthy",
+    "Soybean___Bacterial_blight": "soybean_bacterial_blight",
+    "Soybean___Cercospora_leaf_blight": "soybean_cercospora_leaf_blight",
+    "Soybean___Downy_mildew": "soybean_downy_mildew",
+    "Soybean___Frogeye_leaf_spot": "soybean_frogeye_leaf_spot",
+    "Soybean___Rust": "soybean_rust",
+    "Soybean___Target_spot": "soybean_target_spot",
+    "Soybean___Potassium_deficiency": "soybean_potassium_deficiency",
+    "Wheat___Yellow_rust": "wheat_yellow_rust",
+    "Wheat___Brown_rust": "wheat_brown_rust",
+    "Wheat___Septoria": "wheat_septoria",
+    "Wheat___Powdery_mildew": "wheat_powdery_mildew",
+    "Wheat___healthy": "healthy",
+    "Rice___Bacterial_leaf_blight": "rice_bacterial_leaf_blight",
+    "Rice___Brown_spot": "rice_brown_spot",
+    "Rice___Leaf_blast": "rice_leaf_blast",
+    "Rice___Tungro": "rice_tungro",
+    "Rice___Leaf_smut": "rice_leaf_smut",
+    "Rice___Leaf_scald": "rice_leaf_scald",
+    "Rice___Sheath_blight": "rice_sheath_blight",
+    "Rice___healthy": "healthy",
+    "Cotton___Bacterial_blight": "cotton_bacterial_blight",
+    "Cotton___Curl_virus": "cotton_curl_virus",
+    "Cotton___Fusarium_wilt": "cotton_fusarium_wilt",
+    "Cotton___Verticillium_wilt": "cotton_verticillium_wilt",
+    "Cotton___Alternaria_leaf_spot": "cotton_alternaria_leaf_spot",
+    "Cotton___healthy": "healthy",
+    "Sugarcane___Red_rot": "sugarcane_red_rot",
+    "Sugarcane___Rust": "sugarcane_rust",
+    "Sugarcane___Mosaic": "sugarcane_mosaic",
+    "Sugarcane___Yellow_leaf": "sugarcane_yellow_leaf",
+    "Sugarcane___healthy": "healthy"
+  }
+}

@@ -57,7 +57,7 @@ export const getSystemHealth = createServerFn({ method: "GET" }).handler(async (
 export const requestVisionAnalysis = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator((d: unknown) =>
-    z.object({ analysisId: z.string().uuid(), imageUrl: z.string().url(), mode: z.enum(["standard", "detailed"]) }).parse(d),
+    z.object({ analysisId: z.string().uuid(), imageUrl: z.string().url(), mode: z.enum(["standard", "detailed"]), imageBase64: z.string().optional() }).parse(d),
   )
   .handler(async ({ data }): Promise<{ ok: true; result: VisionResult } | { ok: false; error: string }> => {
     const visionUrl = process.env["VISION_API_URL"];
@@ -69,10 +69,14 @@ export const requestVisionAnalysis = createServerFn({ method: "POST" })
           "content-type": "application/json",
           ...(process.env["VISION_API_KEY"] ? { authorization: `Bearer ${process.env["VISION_API_KEY"]}` } : {}),
         },
-        body: JSON.stringify({ analysis_id: data.analysisId, image_url: data.imageUrl, mode: data.mode }),
+        body: JSON.stringify({ analysis_id: data.analysisId, image_url: data.imageUrl, image_base64: data.imageBase64, mode: data.mode }),
         signal: AbortSignal.timeout(120_000),
       });
-      if (!res.ok) return { ok: false, error: `Vision engine returned ${res.status}` };
+      if (!res.ok) {
+        const detail = await res.text().catch(() => "");
+        console.error("vision engine error", res.status, detail.slice(0, 300));
+        return { ok: false, error: `Vision engine returned ${res.status}` };
+      }
       return { ok: true, result: (await res.json()) as VisionResult };
     } catch (e) {
       console.error("vision request failed", e);

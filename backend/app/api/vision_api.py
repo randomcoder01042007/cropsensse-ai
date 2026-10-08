@@ -5,6 +5,8 @@ Adapter between the frontend contract (JSON: analysis_id, image_url, mode)
 and the existing OpenCV pipeline (analyze_crop_image, which takes raw bytes).
 Returns the exact `VisionResult` shape the frontend expects (src/types/index.ts).
 """
+import base64
+import binascii
 import logging
 import os
 import urllib.error
@@ -34,8 +36,24 @@ INCLUDE_ANNOTATED_IMAGE = os.getenv("INCLUDE_ANNOTATED_IMAGE", "false").lower() 
 
 class AnalyzeRequest(BaseModel):
     analysis_id: str
-    image_url: HttpUrl
+    # The frontend sends the image bytes as base64 (preferred). image_url is only a fallback.
+    image_base64: Optional[str] = None
+    image_url: Optional[HttpUrl] = None
     mode: Literal["standard", "detailed"] = "standard"
+
+
+def _decode_base64_image(data: str) -> bytes:
+    if "," in data[:100]:  # tolerate "data:image/png;base64,...."
+        data = data.split(",", 1)[1]
+    try:
+        raw = base64.b64decode(data, validate=False)
+    except (binascii.Error, ValueError):
+        raise HTTPException(status_code=400, detail="image_base64 is not valid base64.")
+    if not raw:
+        raise HTTPException(status_code=400, detail="Image is empty.")
+    if len(raw) > MAX_DOWNLOAD_BYTES:
+        raise HTTPException(status_code=400, detail="Image is too large.")
+    return raw
 
 
 def _check_auth(authorization: Optional[str]) -> None:
@@ -137,7 +155,13 @@ def _to_vision_result(analysis_id: str, raw: dict) -> dict:
 @router.post("/analyze")
 def analyze(body: AnalyzeRequest, authorization: Optional[str] = Header(default=None)):
     _check_auth(authorization)
-    image_bytes = _download_image(str(body.image_url))
+    if body.image_base64:
+        image_bytes = _decode_base64_image(body.image_base64)
+        log.info("VISION received %d bytes via base64 for %s", len(image_bytes), body.analysis_id)
+    elif body.image_url:
+        image_bytes = _download_image(str(body.image_url))
+    else:
+        raise HTTPException(status_code=422, detail="Send image_base64 or image_url.")
     try:
         raw = analyze_crop_image(image_bytes)
     except ValueError as error:

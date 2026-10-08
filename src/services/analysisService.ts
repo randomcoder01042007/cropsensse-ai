@@ -105,6 +105,15 @@ export async function createAnalysis(input: {
   return analysis;
 }
 
+/** Reads the picked file in the browser and returns it as base64 (no data: prefix). */
+async function fileToBase64(file: File): Promise<string> {
+  const bytes = new Uint8Array(await file.arrayBuffer());
+  let binary = "";
+  const chunk = 0x8000;
+  for (let i = 0; i < bytes.length; i += chunk) binary += String.fromCharCode(...bytes.subarray(i, i + chunk));
+  return btoa(binary);
+}
+
 async function runPipeline(analysis: Analysis, path: string, file: File, adapter: VisionAdapter) {
   const steps = initialPipeline();
   const id = analysis.id;
@@ -135,7 +144,9 @@ async function runPipeline(analysis: Analysis, path: string, file: File, adapter
     await set("quality", "processing");
     let vision: VisionResult;
     try {
-      vision = await adapter.analyze({ analysisId: id, imageUrl, mode: analysis.mode as AnalysisMode });
+      // Send the image bytes straight to the OpenCV service so it never has to download from storage.
+      const imageBase64 = !demo && file.type.startsWith("image/") ? await fileToBase64(file) : undefined;
+      vision = await adapter.analyze({ analysisId: id, imageUrl, mode: analysis.mode as AnalysisMode, ...(imageBase64 ? { imageBase64 } : {}) });
     } catch (e) {
       if (e instanceof VisionUnavailableError) {
         await set("quality", "failed", "Vision engine unavailable");

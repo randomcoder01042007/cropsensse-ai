@@ -1,9 +1,10 @@
 """
 POST /api/vision/analyze  (file: app/api/vision_api.py)
 
-Adapter between the frontend contract (JSON: analysis_id, image_url, mode)
+Adapter between the frontend contract (JSON: analysis_id, image_url, mode, crop)
 and the existing OpenCV pipeline (analyze_crop_image, which takes raw bytes).
-Returns the exact `VisionResult` shape the frontend expects (src/types/index.ts).
+Returns the exact `VisionResult` shape the frontend expects (src/types/index.ts),
+plus a `diagnosis` object from the trained crop-disease model.
 """
 import base64
 import binascii
@@ -17,6 +18,7 @@ from urllib.parse import urlparse
 from fastapi import APIRouter, Header, HTTPException
 from pydantic import BaseModel, HttpUrl
 
+from app.ml.diagnosis import diagnose
 from app.vision.analysis import analyze_crop_image
 
 router = APIRouter(prefix="/vision", tags=["Vision"])
@@ -36,10 +38,12 @@ INCLUDE_ANNOTATED_IMAGE = os.getenv("INCLUDE_ANNOTATED_IMAGE", "false").lower() 
 
 class AnalyzeRequest(BaseModel):
     analysis_id: str
-    # The frontend sends the image bytes as base64 (preferred). image_url is only a fallback.
+    # The frontend can send the image bytes as base64. image_url is the fallback.
     image_base64: Optional[str] = None
     image_url: Optional[HttpUrl] = None
     mode: Literal["standard", "detailed"] = "standard"
+    # Crop chosen by the user (e.g. "Tomato", "Maize"). "Other"/blank = no crop filter.
+    crop: Optional[str] = None
 
 
 def _decode_base64_image(data: str) -> bytes:
@@ -151,7 +155,7 @@ def _to_vision_result(analysis_id: str, raw: dict) -> dict:
 
 
 # Plain `def` (not async): FastAPI runs it in a worker thread, so the
-# blocking download + OpenCV work does not freeze the server.
+# blocking download + OpenCV + model work does not freeze the server.
 @router.post("/analyze")
 def analyze(body: AnalyzeRequest, authorization: Optional[str] = Header(default=None)):
     _check_auth(authorization)
@@ -169,4 +173,10 @@ def analyze(body: AnalyzeRequest, authorization: Optional[str] = Header(default=
         raise HTTPException(status_code=400, detail=str(error))
     except Exception as error:
         raise HTTPException(status_code=500, detail=f"Image analysis failed: {error}")
-    return _to_vision_result(body.analysis_id, raw)
+
+    result = _to_vision_result(body.analysis_id, raw)
+
+    # Disease classification. diagnose() catches its own errors and returns a
+    # {"status": ...} object, so a missing model never breaks the OpenCV result.
+    result["diagnosis"] = diagnose(image_bytes, body.crop)
+    return result

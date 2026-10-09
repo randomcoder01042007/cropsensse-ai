@@ -1,4 +1,4 @@
-import { CursorGlow } from "@/components/app/CursorGlow";
+
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 import {

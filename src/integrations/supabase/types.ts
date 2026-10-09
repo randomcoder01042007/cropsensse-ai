@@ -148,6 +148,74 @@ export type Database = {
           },
         ]
       }
+      analysis_diagnoses: {
+        Row: {
+          analysis_id: string
+          cause: string | null
+          confidence: number | null
+          created_at: string
+          crop: string | null
+          disclaimer: string | null
+          disease: string | null
+          id: string
+          is_healthy: boolean | null
+          looks_like: Json | null
+          management: Json | null
+          message: string | null
+          other_possibilities: Json | null
+          prevention: Json | null
+          status: string
+          symptoms: Json | null
+          user_id: string
+        }
+        Insert: {
+          analysis_id: string
+          cause?: string | null
+          confidence?: number | null
+          created_at?: string
+          crop?: string | null
+          disclaimer?: string | null
+          disease?: string | null
+          id?: string
+          is_healthy?: boolean | null
+          looks_like?: Json | null
+          management?: Json | null
+          message?: string | null
+          other_possibilities?: Json | null
+          prevention?: Json | null
+          status: string
+          symptoms?: Json | null
+          user_id?: string
+        }
+        Update: {
+          analysis_id?: string
+          cause?: string | null
+          confidence?: number | null
+          created_at?: string
+          crop?: string | null
+          disclaimer?: string | null
+          disease?: string | null
+          id?: string
+          is_healthy?: boolean | null
+          looks_like?: Json | null
+          management?: Json | null
+          message?: string | null
+          other_possibilities?: Json | null
+          prevention?: Json | null
+          status?: string
+          symptoms?: Json | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "analysis_diagnoses_analysis_id_fkey"
+            columns: ["analysis_id"]
+            isOneToOne: true
+            referencedRelation: "analyses"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       analysis_images: {
         Row: {
           analysis_id: string

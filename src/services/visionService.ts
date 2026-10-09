@@ -8,7 +8,7 @@ import { requestVisionAnalysis } from "@/lib/system.functions";
  */
 export interface VisionAdapter {
   readonly kind: "backend" | "demo";
-  analyze(input: { analysisId: string; imageUrl: string; mode: AnalysisMode; imageBase64?: string }): Promise<VisionResult>;
+  analyze(input: { analysisId: string; imageUrl: string; mode: AnalysisMode; crop?: string; imageBase64?: string }): Promise<VisionResult>;
   analyzeRegions(input: { analysisId: string; imageUrl: string; regions: VisionRegion[] }): Promise<VisionRegion[]>;
 }
 
@@ -20,8 +20,8 @@ export class VisionUnavailableError extends Error {
 
 export const httpVisionAdapter: VisionAdapter = {
   kind: "backend",
-  async analyze({ analysisId, imageUrl, mode, imageBase64 }) {
-    const res = await requestVisionAnalysis({ data: { analysisId, imageUrl, mode, ...(imageBase64 ? { imageBase64 } : {}) } });
+  async analyze({ analysisId, imageUrl, mode, crop, imageBase64 }) {
+    const res = await requestVisionAnalysis({ data: { analysisId, imageUrl, mode, ...(crop ? { crop } : {}), ...(imageBase64 ? { imageBase64 } : {}) } });
     if (!res.ok) throw new VisionUnavailableError(res.error);
     return res.result;
   },
@@ -91,6 +91,8 @@ export const demoVisionAdapter: VisionAdapter = {
       },
       processed_image_url: null,
       confidence: null,
+      // Demo mode never fabricates a disease diagnosis.
+      diagnosis: null,
     };
   },
   async analyzeRegions({ regions, analysisId }) {

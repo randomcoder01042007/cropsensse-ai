@@ -10,12 +10,13 @@ export interface ServiceHealth {
   detail: string;
 }
 
-async function ping(url: string): Promise<boolean> {
+async function ping(url: string): Promise<{ ok: boolean; body: unknown }> {
   try {
     const res = await fetch(url, { signal: AbortSignal.timeout(4000) });
-    return res.ok;
+    const body = res.ok ? await res.json().catch(() => null) : null;
+    return { ok: res.ok, body };
   } catch {
-    return false;
+    return { ok: false, body: null };
   }
 }
 
@@ -24,7 +25,10 @@ export const getSystemHealth = createServerFn({ method: "GET" }).handler(async (
   const visionUrl = process.env["VISION_API_URL"];
   const agentProvider = process.env["AGENT_PROVIDER"];
   const awsRegion = process.env["AWS_REGION"];
-  const visionOnline = visionUrl ? await ping(`${visionUrl.replace(/\/$/, "")}/api/health`) : false;
+  const visionPing = visionUrl ? await ping(`${visionUrl.replace(/\/$/, "")}/api/health`) : { ok: false, body: null };
+  const visionOnline = visionPing.ok;
+  const classifier = (visionPing.body as { classifier?: { model_file_found?: boolean; supported_crops?: string[] } } | null)?.classifier;
+  const crops = classifier?.supported_crops ?? [];
 
   const services: ServiceHealth[] = [
     { key: "frontend", label: "Frontend", state: "online", detail: "Serving" },
@@ -36,6 +40,16 @@ export const getSystemHealth = createServerFn({ method: "GET" }).handler(async (
       label: "OpenCV 5 Vision Engine",
       state: !visionUrl ? "not_configured" : visionOnline ? "online" : "offline",
       detail: !visionUrl ? "VISION_API_URL not set — demo mode only" : visionOnline ? "FastAPI service healthy" : "Service unreachable",
+    },
+    {
+      key: "disease_model",
+      label: "Disease model",
+      state: !visionUrl ? "not_configured" : classifier?.model_file_found === true ? "online" : "offline",
+      detail: !visionUrl
+        ? "VISION_API_URL not set"
+        : classifier?.model_file_found === true
+          ? crops.length ? `Supports ${crops.length > 1 ? crops.slice(0, -1).join(", ") + " and " + crops[crops.length - 1] : crops[0]}` : "Model loaded"
+          : !visionOnline ? "Vision engine unreachable" : "Model file not found",
     },
     {
       key: "agent",
@@ -57,7 +71,7 @@ export const getSystemHealth = createServerFn({ method: "GET" }).handler(async (
 export const requestVisionAnalysis = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator((d: unknown) =>
-    z.object({ analysisId: z.string().uuid(), imageUrl: z.string().url(), mode: z.enum(["standard", "detailed"]), imageBase64: z.string().optional() }).parse(d),
+    z.object({ analysisId: z.string().uuid(), imageUrl: z.string().url(), mode: z.enum(["standard", "detailed"]), crop: z.string().optional(), imageBase64: z.string().optional() }).parse(d),
   )
   .handler(async ({ data }): Promise<{ ok: true; result: VisionResult } | { ok: false; error: string }> => {
     const visionUrl = process.env["VISION_API_URL"];
@@ -69,7 +83,7 @@ export const requestVisionAnalysis = createServerFn({ method: "POST" })
           "content-type": "application/json",
           ...(process.env["VISION_API_KEY"] ? { authorization: `Bearer ${process.env["VISION_API_KEY"]}` } : {}),
         },
-        body: JSON.stringify({ analysis_id: data.analysisId, image_url: data.imageUrl, image_base64: data.imageBase64, mode: data.mode }),
+        body: JSON.stringify({ analysis_id: data.analysisId, image_url: data.imageUrl, image_base64: data.imageBase64, mode: data.mode, crop: data.crop }),
         signal: AbortSignal.timeout(120_000),
       });
       if (!res.ok) {

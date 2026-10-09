@@ -33,7 +33,7 @@ const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 export async function listAnalyses(limit = 200) {
   const { data, error } = await supabase
     .from("analyses")
-    .select("*, fields(name), analysis_images(storage_path, kind, mime_type)")
+    .select("*, fields(name), analysis_images(storage_path, kind, mime_type), analysis_diagnoses(disease, status)")
     .order("created_at", { ascending: false })
     .limit(limit);
   if (error) throw error;
@@ -44,7 +44,7 @@ export async function getAnalysis(id: string) {
   const { data, error } = await supabase
     .from("analyses")
     .select(
-      "*, fields(id, name, location), analysis_images(*), analysis_regions(*), analysis_measurements(*), agent_actions(*), recommendations(*)",
+      "*, fields(id, name, location), analysis_images(*), analysis_regions(*), analysis_measurements(*), agent_actions(*), recommendations(*), analysis_diagnoses(*)",
     )
     .eq("id", id)
     .maybeSingle();
@@ -146,7 +146,7 @@ async function runPipeline(analysis: Analysis, path: string, file: File, adapter
     try {
       // Send the image bytes straight to the OpenCV service so it never has to download from storage.
       const imageBase64 = !demo && file.type.startsWith("image/") ? await fileToBase64(file) : undefined;
-      vision = await adapter.analyze({ analysisId: id, imageUrl, mode: analysis.mode as AnalysisMode, ...(imageBase64 ? { imageBase64 } : {}) });
+      vision = await adapter.analyze({ analysisId: id, imageUrl, mode: analysis.mode as AnalysisMode, crop: analysis.crop_type, ...(imageBase64 ? { imageBase64 } : {}) });
     } catch (e) {
       if (e instanceof VisionUnavailableError) {
         await set("quality", "failed", "Vision engine unavailable");
@@ -185,7 +185,7 @@ async function runPipeline(analysis: Analysis, path: string, file: File, adapter
           .maybeSingle()
       : { data: null };
     const agent = agentService.provider;
-    const agentInput = { vision, image: { mime: file.type, size: file.size }, previous: prev };
+    const agentInput = { vision, image: { mime: file.type, size: file.size }, previous: prev, diagnosis: demo ? null : (vision.diagnosis ?? null) };
     let decision = await agent.decide(agentInput, "initial");
     await sleep(pace);
     await log("agent", "Agent evaluated region", decision.rationale);
@@ -223,6 +223,30 @@ async function runPipeline(analysis: Analysis, path: string, file: File, adapter
     const ms = Object.entries(vision.measurements);
     if (ms.length)
       await supabase.from("analysis_measurements").insert(ms.map(([key, m]) => ({ analysis_id: id, key, label: m.label, value: m.value, unit: m.unit ?? null })));
+    if (!demo && vision.diagnosis) {
+      try {
+        const d = vision.diagnosis;
+        const { error: dErr } = await supabase.from("analysis_diagnoses").insert({
+          analysis_id: id,
+          status: d.status,
+          crop: d.crop ?? null,
+          disease: d.disease ?? null,
+          is_healthy: d.is_healthy ?? null,
+          cause: d.cause ?? null,
+          message: d.message ?? null,
+          disclaimer: d.disclaimer ?? null,
+          confidence: d.confidence ?? null,
+          symptoms: (d.symptoms ?? []) as unknown as Json,
+          prevention: (d.prevention ?? []) as unknown as Json,
+          management: (d.management ?? []) as unknown as Json,
+          other_possibilities: (d.possible_matches ?? d.other_possibilities ?? []) as unknown as Json,
+          looks_like: (d.looks_like ?? null) as unknown as Json,
+        });
+        if (dErr) console.error("diagnosis storage failed", dErr);
+      } catch (e) {
+        console.error("diagnosis storage failed", e);
+      }
+    }
     if (decision.recommendations.length)
       await supabase.from("recommendations").insert(
         decision.recommendations.map((r) => ({ analysis_id: id, field_id: analysis.field_id, title: r.title, reason: r.reason, next_step: r.next_step, severity: r.severity })),

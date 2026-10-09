@@ -11,6 +11,7 @@ export type AgentActionRow = T["agent_actions"]["Row"];
 export type Recommendation = T["recommendations"]["Row"];
 export type Report = T["reports"]["Row"];
 export type Notification = T["notifications"]["Row"];
+export type AnalysisDiagnosis = T["analysis_diagnoses"]["Row"];
 
 export type DataSource = Database["public"]["Enums"]["data_source"];
 export type AnalysisStatus = Database["public"]["Enums"]["analysis_status"];
@@ -48,6 +49,26 @@ export const PIPELINE_STEPS: { key: PipelineStepKey; label: string }[] = [
   { key: "final", label: "Final assessment" },
 ];
 
+/* ---------- Disease diagnosis contract (returned by the vision service) ---------- */
+export type DiagnosisStatus = "identified" | "uncertain" | "crop_mismatch" | "crop_not_supported" | "model_not_loaded" | "error";
+export interface DiagnosisCandidate { crop: string; disease: string; confidence: number }
+export interface Diagnosis {
+  status: DiagnosisStatus;
+  message?: string;
+  crop?: string;
+  disease?: string;
+  is_healthy?: boolean;
+  cause?: string | null;
+  confidence?: number;
+  symptoms?: string[];
+  prevention?: string[];
+  management?: string[];
+  other_possibilities?: DiagnosisCandidate[];
+  possible_matches?: DiagnosisCandidate[];
+  looks_like?: DiagnosisCandidate;
+  disclaimer?: string;
+}
+
 /* ---------- OpenCV 5 vision service contract (POST /api/vision/analyze) ---------- */
 export interface VisionRegion {
   id: string;
@@ -67,6 +88,7 @@ export interface VisionResult {
   measurements: Record<string, { label: string; value: number | null; unit?: string }>;
   processed_image_url: string | null;
   confidence?: number | null;
+  diagnosis?: Diagnosis | null;
 }
 
 /* ---------- AI agent contract ---------- */
@@ -81,6 +103,7 @@ export interface AgentInput {
   image: { mime: string; size: number; width?: number; height?: number };
   field?: Pick<Field, "id" | "name" | "primary_crop"> | null;
   previous?: Pick<Analysis, "id" | "affected_area" | "vegetation_coverage" | "created_at"> | null;
+  diagnosis?: Diagnosis | null;
 }
 export interface AgentDecision {
   action: AgentActionType;

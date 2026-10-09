@@ -11,6 +11,7 @@ import { ImageViewer } from "@/components/cv/ImageViewer";
 import { CvLegend, CvOverlay, type OverlayLayer, type OverlayRegion } from "@/components/cv/CvOverlay";
 import { getAnalysis, pipelineOf, signedUrl, type AnalysisDetail } from "@/services/analysisService";
 import { cn } from "@/lib/utils";
+import { DiagnosisView, pickDiagnosis } from "@/components/app/DiagnosisView";
 import type { PipelineStep } from "@/types";
 
 export const Route = createFileRoute("/_authenticated/analyses/$id")({
@@ -142,6 +143,7 @@ function Result({ a, imgUrl, isVideo }: { a: AnalysisDetail; imgUrl: string | nu
         <TabsList className="flex-wrap">
           <TabsTrigger value="overview">Overview</TabsTrigger>
           <TabsTrigger value="vision">Vision Analysis</TabsTrigger>
+          <TabsTrigger value="diagnosis">Diagnosis</TabsTrigger>
           <TabsTrigger value="measurements">Measurements</TabsTrigger>
           <TabsTrigger value="agent">Agent Activity</TabsTrigger>
           <TabsTrigger value="recs">Recommendations</TabsTrigger>
@@ -158,6 +160,7 @@ function Result({ a, imgUrl, isVideo }: { a: AnalysisDetail; imgUrl: string | nu
             </div>
           </div>
           <CvLegend />
+          <Panel title="Diagnosis"><DiagnosisView d={pickDiagnosis(a.analysis_diagnoses)} compact /></Panel>
           <Panel title="Visual assessment">
             <p className="text-sm leading-relaxed">{a.final_assessment ?? "No assessment available."}</p>
             {a.agent_decision && <p className="mt-2 font-mono text-xs text-primary">Agent decision: {a.agent_decision}</p>}
@@ -189,6 +192,10 @@ function Result({ a, imgUrl, isVideo }: { a: AnalysisDetail; imgUrl: string | nu
               ))}
             </div>
           )}
+        </TabsContent>
+
+        <TabsContent value="diagnosis" className="mt-4">
+          <Panel title="Disease diagnosis"><DiagnosisView d={pickDiagnosis(a.analysis_diagnoses)} /></Panel>
         </TabsContent>
 
         <TabsContent value="measurements" className="mt-4">

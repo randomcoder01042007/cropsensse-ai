@@ -7,6 +7,12 @@ import { signedUrl, type listAnalyses } from "@/services/analysisService";
 
 type Row = Awaited<ReturnType<typeof listAnalyses>>[number];
 
+function diseaseOf(r: Row): string | null {
+  const d = r.analysis_diagnoses as unknown;
+  const one = (Array.isArray(d) ? d[0] : d) as { disease: string | null; status: string } | null | undefined;
+  return one?.status === "identified" && one.disease ? one.disease : null;
+}
+
 function Thumb({ row }: { row: Row }) {
   const img = row.analysis_images?.find((i) => i.kind === "original" || i.kind === "original_video");
   const isVideo = img?.kind === "original_video";
@@ -30,6 +36,7 @@ export function AnalysisTable({ rows, showImage }: { rows: Row[]; showImage?: bo
             <TableHead>Crop</TableHead>
             <TableHead>Status</TableHead>
             <TableHead className="text-right">Affected area</TableHead>
+            <TableHead>Diagnosis</TableHead>
             <TableHead>Agent decision</TableHead>
             <TableHead className="pr-4 text-right">Action</TableHead>
           </TableRow>
@@ -48,6 +55,7 @@ export function AnalysisTable({ rows, showImage }: { rows: Row[]; showImage?: bo
                 </div>
               </TableCell>
               <TableCell className="text-right font-mono text-sm">{r.affected_area != null ? `${r.affected_area}%` : "—"}</TableCell>
+              <TableCell className="whitespace-nowrap text-sm">{diseaseOf(r) ?? <span className="text-muted-foreground">-</span>}</TableCell>
               <TableCell className="font-mono text-xs text-muted-foreground">{r.agent_decision ?? "—"}</TableCell>
               <TableCell className="pr-4 text-right">
                 <Link to="/analyses/$id" params={{ id: r.id }} className="text-sm font-medium text-primary hover:underline">View</Link>

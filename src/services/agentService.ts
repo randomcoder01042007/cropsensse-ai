@@ -13,7 +13,7 @@ export interface AgentProvider {
 
 export const rulesAgent: AgentProvider = {
   name: "Rule-based policy (demo)",
-  async decide({ vision, previous }, stage) {
+  async decide({ vision, previous, diagnosis }, stage) {
     const q = vision.image_quality.score;
     const affected = vision.measurements["affected_area"]?.value ?? null;
     const high = vision.regions.filter((r) => r.severity === "high");
@@ -26,6 +26,18 @@ export const rulesAgent: AgentProvider = {
         rationale: `Image quality score ${q} is below the 55 threshold; measurements would be unreliable.`,
         recommendations: [
           { title: "Additional image recommended", reason: "Image quality is too low for a reliable visual assessment.", next_step: "Capture a sharper image in even daylight and re-run the analysis.", severity: "attention" },
+        ],
+      };
+    }
+
+    if (diagnosis && (diagnosis.status === "uncertain" || diagnosis.status === "crop_mismatch")) {
+      const rationale = diagnosis.message ?? (diagnosis.status === "uncertain" ? "The disease model could not reach a confident result." : "The image does not appear to match the selected crop.");
+      return {
+        engine: "rules",
+        action: "REQUEST_NEW_IMAGE",
+        rationale,
+        recommendations: [
+          { title: "Additional image recommended", reason: rationale, next_step: "Capture one leaf filling the frame, in focus, in daylight, on a plain background.", severity: "attention" },
         ],
       };
     }
@@ -48,6 +60,36 @@ export const rulesAgent: AgentProvider = {
       recs.push({ title: "Compare with previous field analysis", reason: "A previous analysis exists for this field.", next_step: "Open the field page to review the trend over time.", severity: "info" });
     else
       recs.push({ title: "Establish a baseline", reason: "No earlier analysis exists for this field.", next_step: "Repeat the analysis in 7 days to track change.", severity: "info" });
+
+    if (diagnosis?.status === "identified") {
+      if (diagnosis.is_healthy) {
+        recs.unshift({ title: "No disease detected", reason: "The disease model classified this leaf as healthy.", next_step: "Keep monitoring the field regularly.", severity: "info" });
+        return {
+          engine: "rules",
+          action: "FINAL_ASSESSMENT",
+          rationale: "Disease model classified the leaf as healthy (AI suggestion, confirm with an expert).",
+          assessment: { health: "healthy", summary: "No disease detected in the analysed image. AI suggestion, confirm with an expert." },
+          recommendations: recs,
+        };
+      }
+      if (diagnosis.disease) {
+        const dHealth = affected != null && affected >= 12 ? "high_stress" : "attention";
+        const mgmt = diagnosis.management?.[0];
+        recs.unshift({
+          title: diagnosis.disease,
+          reason: diagnosis.cause ?? "Identified by the disease model.",
+          next_step: mgmt ?? "Confirm with a local agriculture expert.",
+          severity: dHealth === "high_stress" ? "high" : "attention",
+        });
+        return {
+          engine: "rules",
+          action: "FINAL_ASSESSMENT",
+          rationale: `Disease model identified ${diagnosis.disease} (AI suggestion, confirm with an expert).`,
+          assessment: { health: dHealth, summary: `${diagnosis.disease} detected. AI suggestion, confirm with an expert.` },
+          recommendations: recs,
+        };
+      }
+    }
 
     const health = affected == null ? "unknown" : affected >= 12 ? "high_stress" : affected >= 3 ? "attention" : "healthy";
     const needsHuman = affected != null && affected >= 20;

@@ -69,6 +69,7 @@ function Analyze() {
       <PageHeader eyebrow="Analyze" title="New Crop Analysis" description="Upload a field image or short video. It is stored privately in your workspace." />
       <div className="grid gap-4 lg:grid-cols-[1.4fr_1fr]">
         <Panel title="Upload">
+          <p className="mb-3 rounded-md border bg-accent px-3 py-2 text-xs text-accent-foreground">For best disease detection: one leaf filling the frame, in focus, in daylight, plain background.</p>
           {!file ? (
             <div
               onDragOver={(e) => { e.preventDefault(); setDrag(true); }}
@@ -109,7 +110,7 @@ function Analyze() {
               <Label>Crop type</Label>
               <Select value={crop} onValueChange={setCrop}>
                 <SelectTrigger><SelectValue /></SelectTrigger>
-                <SelectContent>{CROPS.map((c) => <SelectItem key={c} value={c}>{c}</SelectItem>)}</SelectContent>
+                <SelectContent>{CROPS.map((c) => <SelectItem key={c} value={c}>{c === "Other" ? "Other / not sure (no crop filter)" : c}</SelectItem>)}</SelectContent>
               </Select>
             </div>
             <div className="space-y-1.5">
@@ -131,7 +132,7 @@ function Analyze() {
               </div>
               <p className="mt-1.5 text-xs text-muted-foreground">
                 {demo
-                  ? "Uses the mock vision adapter. Results are labelled Demo and are not real OpenCV output."
+                  ? "Uses the mock vision adapter. Results are labelled Demo and are not real OpenCV output. Disease diagnosis needs the real backend."
                   : visionAvailable
                     ? "Sends the image to the connected OpenCV 5 vision engine."
                     : "The vision engine is not connected — the image will upload but processing will report unavailable."}

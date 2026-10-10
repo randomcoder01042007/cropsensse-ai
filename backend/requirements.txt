@@ -4,3 +4,5 @@ python-multipart
 numpy
 pillow
 opencv-python==5.0.0.93
+torch
+torchvision

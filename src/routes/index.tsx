@@ -2,13 +2,14 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 import {
-  ArrowRight, BarChart3, Bot, Cpu, Database, Eye, FileText, GitCompare, Layers, Map, ScanSearch, Server, Cloud, Upload, Workflow,
+  ArrowRight, BarChart3, Leaf, Sparkles, Bot, Cpu, Database, Eye, FileText, GitCompare, Layers, Map, ScanSearch, Server, Cloud, Upload, Workflow,
 } from "lucide-react";
 import { Logo } from "@/components/brand/Logo";
 import { Button } from "@/components/ui/button";
 import { CvOverlay, CvLegend, type OverlayRegion } from "@/components/cv/CvOverlay";
 import heroImg from "@/assets/field-hero.jpg";
 import { cn } from "@/lib/utils";
+import { ThemeToggle } from "@/components/app/ThemeToggle";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -22,6 +23,12 @@ export const Route = createFileRoute("/")({
   component: Landing,
 });
 
+const FEATURES = [
+  { icon: ScanSearch, emoji: "🔍", t: "See stress early", d: "OpenCV highlights suspicious patches on every leaf photo — with measured affected area, not guesses.", cta: "Start an analysis", to: "/analyze", a: "var(--neon-blue)", b: "var(--neon-cyan)" },
+  { icon: Sparkles, emoji: "🧠", t: "Agent that looks closer", d: "When something looks off, the agent re-checks the region or asks for a better photo — every step logged.", cta: "See agent activity", to: "/dashboard", a: "var(--neon-violet)", b: "var(--neon-magenta)" },
+  { icon: Leaf, emoji: "🌱", t: "Track every field", d: "Organise analyses by field and crop, and follow health over time — weekly reports included.", cta: "Open fields", to: "/fields", a: "var(--neon-green)", b: "var(--neon-cyan)" },
+] as const;
+
 const HERO_REGIONS: OverlayRegion[] = [
   { id: "R1", label: "R1", x: 0.53, y: 0.14, w: 0.22, h: 0.26, area_percent: 4.8, contour: [[0.56,0.18],[0.64,0.15],[0.73,0.19],[0.74,0.3],[0.68,0.38],[0.58,0.37],[0.54,0.27]] },
   { id: "R2", label: "R2", x: 0.52, y: 0.6, w: 0.13, h: 0.18, area_percent: 2.1, contour: [[0.54,0.63],[0.6,0.61],[0.64,0.66],[0.63,0.75],[0.56,0.77],[0.53,0.7]] },
@@ -31,7 +38,7 @@ const HERO_REGIONS: OverlayRegion[] = [
 function Landing() {
   return (
     <div className="min-h-screen bg-background">
-      <header className="sticky top-0 z-30 border-b bg-background/90 backdrop-blur">
+      <header className="sticky top-0 z-30 border-b bg-background/70 backdrop-blur-xl">
         <div className="mx-auto flex h-14 max-w-7xl items-center justify-between px-4 sm:px-6">
           <Logo />
           <nav className="hidden items-center gap-6 text-sm text-muted-foreground md:flex">
@@ -40,9 +47,10 @@ function Landing() {
             <a href="#agentic" className="hover:text-foreground">Agentic vision</a>
             <a href="#technology" className="hover:text-foreground">Technology</a>
           </nav>
-          <div className="flex gap-2">
-            <Button asChild variant="ghost" size="sm"><Link to="/auth" search={{ mode: "login" }}>Sign in</Link></Button>
-            <Button asChild size="sm"><Link to="/auth" search={{ mode: "signup" }}>Get started</Link></Button>
+          <div className="flex items-center gap-1 sm:gap-2">
+            <ThemeToggle />
+            <Button asChild variant="ghost" size="sm" className="hidden sm:inline-flex"><Link to="/auth" search={{ mode: "login" }}>Sign in</Link></Button>
+            <Button asChild size="sm" className="bg-electric btn-glow"><Link to="/auth" search={{ mode: "signup" }}>Get started</Link></Button>
           </div>
         </div>
       </header>
@@ -51,17 +59,39 @@ function Landing() {
         <div className="mx-auto grid max-w-7xl gap-12 px-4 py-16 sm:px-6 lg:grid-cols-[1fr_1.15fr] lg:py-24">
           <div className="flex flex-col justify-center">
             <p className="eyebrow">OpenCV 5 · Agentic analysis</p>
-            <h1 className="mt-4 text-4xl font-semibold leading-[1.1] tracking-tight sm:text-5xl">Smarter Crop Monitoring with Computer Vision</h1>
+            <h1 className="mt-4 text-4xl font-semibold leading-[1.1] tracking-tight sm:text-5xl">Smarter crop monitoring — <span className="text-rainbow">powered by computer vision</span></h1>
             <p className="mt-5 max-w-lg text-base leading-relaxed text-muted-foreground">
               CropSense AI combines OpenCV 5 computer vision and agentic analysis to help identify visual crop stress, monitor field health, and support earlier decisions.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
-              <Button asChild size="lg"><Link to="/analyze">Start Analysis <ArrowRight className="h-4 w-4" /></Link></Button>
+              <Button asChild size="lg" className="bg-electric btn-glow"><Link to="/analyze">Start Analysis <ArrowRight className="h-4 w-4" /></Link></Button>
               <Button asChild size="lg" variant="outline"><Link to="/dashboard">Explore Dashboard</Link></Button>
             </div>
             <p className="mt-6 text-xs text-muted-foreground">Visual assessment only — CropSense AI does not diagnose specific diseases.</p>
           </div>
           <HeroVisual />
+        </div>
+      </section>
+
+      <section aria-labelledby="highlights" className="relative overflow-hidden">
+        <div aria-hidden className="pointer-events-none absolute -top-24 left-1/4 h-72 w-72 rounded-full bg-neon-violet/20 blur-3xl" />
+        <div aria-hidden className="pointer-events-none absolute -bottom-24 right-1/4 h-72 w-72 rounded-full bg-neon-cyan/20 blur-3xl" />
+        <div className="relative mx-auto max-w-7xl px-4 py-20 sm:px-6">
+          <p className="eyebrow">Why CropSense</p>
+          <h2 id="highlights" className="mt-2 text-2xl font-semibold tracking-tight sm:text-3xl">Three things it does well — <span className="text-rainbow">without guesswork</span></h2>
+          <div className="mt-10 grid gap-6 md:grid-cols-3">
+            {FEATURES.map((f) => (
+              <Link key={f.t} to={f.to} className="feature-card group block focus-visible:outline-none" style={{ ["--strip-a" as string]: f.a, ["--strip-b" as string]: f.b }}>
+                <div className="flex items-start justify-between">
+                  <span className="feature-icon"><f.icon className="h-5 w-5" /></span>
+                  <span className="text-xl" aria-hidden>{f.emoji}</span>
+                </div>
+                <h3 className="mt-5 text-lg font-semibold">{f.t}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{f.d}</p>
+                <span className="mt-5 inline-flex items-center gap-1 text-sm font-medium text-primary">{f.cta} <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" /></span>
+              </Link>
+            ))}
+          </div>
         </div>
       </section>
 

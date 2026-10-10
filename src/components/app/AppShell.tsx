@@ -12,6 +12,7 @@ import { notificationService } from "@/services/notificationService";
 import { authService } from "@/services/authService";
 import { getSystemHealth } from "@/lib/system.functions";
 import { cn } from "@/lib/utils";
+import { ThemeToggle } from "./ThemeToggle";
 
 const NAV = [
   { group: "Workspace", items: [
@@ -49,8 +50,8 @@ export function AppShell() {
                       search={"search" in it ? it.search : {}}
                       onClick={() => setOpen(false)}
                       activeOptions={{ includeSearch: "search" in it }}
-                      className="flex items-center gap-2.5 rounded-md px-2 py-1.5 text-sm text-sidebar-foreground hover:bg-sidebar-accent"
-                      activeProps={{ className: "bg-sidebar-accent font-medium text-sidebar-accent-foreground" }}
+                      className="relative flex items-center gap-2.5 rounded-md px-2 py-1.5 text-sm text-sidebar-foreground hover:translate-x-0.5 hover:bg-sidebar-accent"
+                      activeProps={{ className: "bg-sidebar-accent font-medium text-sidebar-accent-foreground before:absolute before:inset-y-1 before:left-0 before:w-0.5 before:rounded-full before:bg-electric" }}
                     >
                       <it.icon className="h-4 w-4 opacity-70" /> {it.label}
                     </Link>
@@ -104,6 +105,7 @@ function Header({ onMenu }: { onMenu: () => void }) {
           <span className={cn("h-2 w-2 rounded-full", vision?.state === "online" ? "bg-success" : vision?.state === "offline" ? "bg-destructive" : "bg-warning")} />
           {vision?.state === "online" ? "Vision engine online" : "Demo mode"}
         </Link>
+        <ThemeToggle />
         <Popover onOpenChange={(o) => { if (!o && unread) notificationService.markAllRead().then(() => notifs.refetch()); }}>
           <PopoverTrigger asChild>
             <Button variant="ghost" size="icon" className="relative" aria-label={`Notifications (${unread} unread)`}>
